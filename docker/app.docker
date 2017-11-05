@@ -1,0 +1,29 @@
+FROM php:7-fpm
+
+RUN apt-get update && apt-get install -y mysql-client 
+
+# LARAVEL depends on mcrypt and pdo then... #
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install git
+RUN apt-get install -y --fix-missing zip unzip
+RUN apt-get install -y --fix-missing git
+
+# Install mcrypt
+RUN apt-get install -y libmcrypt-dev
+RUN docker-php-ext-install mcrypt
+
+# Install mbstring
+RUN docker-php-ext-install mbstring
+
+# Install PDO
+RUN docker-php-ext-install pdo_mysql
+
+# Install GD
+RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng12-dev
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-install gd
+
+WORKDIR /var/www
