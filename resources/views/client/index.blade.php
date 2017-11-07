@@ -7,8 +7,16 @@
         </thead>
         <tbody>
         @foreach($clients as $client)
-            <td>{{ $client['name'] }}</td>
+            <tr>
+                <td>{{ $client['name'] }}</td>
+            </tr>
         @endforeach
         </tbody>
     </table>
-@endsection()
+    @if($page > 0)
+        <a href="{{route("clients", ["page" => $page - 1])}}">Previous</a>
+    @endif
+    @if($showNext)
+        <a href="{{route("clients", ["page" => $page + 1])}}">Next</a>
+    @endif
+@endsection
