@@ -20,20 +20,23 @@ class ClientController extends WebController
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \App\Models\User
      */
     protected function createPost(StoreClientPost $request)
     {
         $client = Client::createOne($request->name, $request->gender, $request->phone, $request->email, $request->address, $request->nationality, $request->dateOfBirth, $request->educationBackground, $request->preferredModeOfContact);
         $client->saveToCSV();
+
         return redirect()->route('clients');
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return \App\Models\User
      */
     protected function createGet()
@@ -44,15 +47,17 @@ class ClientController extends WebController
     /**
      * List all clients.
      *
-     * @param  Request $request containing the page index
+     * @param Request $request containing the page index
+     *
      * @return \App\Models\Client
      */
     protected function index(Request $request)
     {
-        $page = $request->input("page", 0);
+        $page = $request->input('page', 0);
         $itemInPage = 10;
         $clients = Client::getFromCSV($page * $itemInPage, $itemInPage)->getRecords();
         $showNext = Client::getFromCSV(($page + 1) * $itemInPage, 1)->count() == 1;
-        return view('client.index', ['clients' => $clients->valid()? $clients : [], 'page' => $page, 'showNext' => $showNext]);
+
+        return view('client.index', ['clients' => $clients->valid() ? $clients : [], 'page' => $page, 'showNext' => $showNext]);
     }
 }

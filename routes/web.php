@@ -17,5 +17,4 @@ Route::group(['namespace' => 'Web'], function () {
     Route::get('/clients', 'ClientController@index')->name('clients');
     Route::get('/client', 'ClientController@createGet')->name('clientCreateGet');
     Route::post('/client', 'ClientController@createPost')->name('clientCreatePost');
-
 });
