@@ -69,7 +69,7 @@ class Client extends Model
 
     public function saveToCSV()
     {
-        $writer = Writer::createFromPath(self::getPathCSV(), 'w');
+        $writer = Writer::createFromPath(self::getPathCSV(), 'a+');
         $writer->insertOne($this->toArray());
     }
 

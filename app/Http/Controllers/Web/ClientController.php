@@ -50,6 +50,9 @@ class ClientController extends WebController
     protected function index(Request $request)
     {
         $page = $request->input("page", 0);
-        return view('client.index', ['clients' => Client::getFromCSV($page)->getRecords()]);
+        $itemInPage = 10;
+        $clients = Client::getFromCSV($page * $itemInPage, $itemInPage)->getRecords();
+        $showNext = Client::getFromCSV(($page + 1) * $itemInPage, 1)->count() == 1;
+        return view('client.index', ['clients' => $clients->valid()? $clients : [], 'page' => $page, 'showNext' => $showNext]);
     }
 }
