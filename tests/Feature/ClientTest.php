@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ClientTest extends TestCase
 {
@@ -21,7 +20,6 @@ class ClientTest extends TestCase
     public function testRouteClients_SeeTable()
     {
         $response = $this->get('/clients');
-        $response->assertSee("Clients");
+        $response->assertSee('Clients');
     }
-
 }
