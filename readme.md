@@ -9,6 +9,16 @@ This is a test to show:
 - jQuery validation
 - GitFlow
 
+
+The goal is to realize a web application to insert **client** and list them
+By specs there is no authentication or roles (admin/user) for use this app
+The persistence layer is the (private) file "client.csv" inside the storage directory
+
+The access is done by the Models\Client that extends Model also if this is not an eloquent model
+This is justified by the fact that in the future this app could be scale until use a real DB.
+
+To access the client.csv file we will use the league/csv package
+
 ## How to Start
 
 ### Requirements
